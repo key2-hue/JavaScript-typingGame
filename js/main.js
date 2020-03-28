@@ -3,7 +3,7 @@
   const wordsJapanese = [
 
   ];
-  
+
   const words = [
     'kumamoto',
     'fukuoka',
@@ -22,26 +22,25 @@
   let isPlaying = false;
 
   const target = document.getElementById('target');
-  const score = document.getElementById('score');
-  const miss = document.getElementById('miss');
+  const score = document.createElement('span');
+  score.id = 'score';
+  const miss = document.createElement('span');
+  miss.id = 'miss';
   const timerLabel = document.getElementById('timer');
   const yourAnswer = document.getElementById('answer');
 
   function updateTarget() {
-    let placeholder = '';
-    for(let i = 0; i < loc; i++) {
-      placeholder += word[i];
-    }
-    target.innerHTML = "<span style='color: skyblue'>" + placeholder + "</span>" + word.substring(loc);
+    target.innerHTML = "<span style='color: skyblue'>" + word.substring(0,loc) + "</span>" + word.substring(loc);
   }
 
   function updateTimer() {
     const timeLeft = startTime + timeLimit - Date.now();
-    timerLabel.textContent = (timeLeft / 1000).toFixed(2);
+    const info = document.getElementById('info');
+    info.innerHTML = "残り時間: <span id='timer'>" + (timeLeft / 1000).toFixed() + "</span>";
 
     const timeoutId = setTimeout(() => {
       updateTimer();
-    }, 10);
+    }, 1000);
 
     if(timeLeft < 0) {
       isPlaying = false;
