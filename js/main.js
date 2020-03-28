@@ -1,4 +1,9 @@
 {
+
+  const wordsJapanese = [
+
+  ];
+  
   const words = [
     'kumamoto',
     'fukuoka',
@@ -25,9 +30,9 @@
   function updateTarget() {
     let placeholder = '';
     for(let i = 0; i < loc; i++) {
-      placeholder += '*';
+      placeholder += word[i];
     }
-    target.textContent = placeholder + word.substring(loc);
+    target.innerHTML = "<span style='color: skyblue'>" + placeholder + "</span>" + word.substring(loc);
   }
 
   function updateTimer() {
