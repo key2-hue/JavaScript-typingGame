@@ -32,10 +32,30 @@
   score.id = 'score';
   const miss = document.createElement('span');
   miss.id = 'miss';
-  const timerLabel = document.getElementById('timer');
   const japaneseTarget = document.getElementById('japaneseTarget');
+  let num;
+  
 
-  function updateTarget() {
+  function start() {
+    countDown = 3;
+    info.innerHTML = '';
+    var startTimer = setInterval(function(){
+      target.innerHTML = countDown;
+      countDown--;
+      if(countDown < 0){
+         clearInterval(startTimer);
+         num = Math.floor(Math.random() * words.length);
+         updateTarget(num);
+         startTime = Date.now();
+         updateTimer();
+         }
+    },1000);
+  }
+
+  function updateTarget(num) {
+    console.log(num);
+    japaneseTarget.textContent = wordsJapanese[num];
+    word = words[num];
     target.innerHTML = "<span style='color: skyblue'>" + word.substring(0,loc) + "</span>" + word.substring(loc);
   }
 
@@ -52,7 +72,8 @@
       isPlaying = false;
 
       clearTimeout(timeoutId);
-      timerLabel.textContent = '0.00';
+      japaneseTarget.textContent = '';
+      info.innerHTML = "残り時間: <span id='timer'>" + 0 + "</span>";
       setTimeout(() => {
         showResult();
       }, 100);
@@ -77,12 +98,11 @@
     missNum = 0;
     score.textContent = scoreNum;
     miss.textContent = missNum;
-    let num = Math.floor(Math.random() * words.length);
-    japaneseTarget.textContent = wordsJapanese[num];
-    target.textContent = words[num];
-    word = words[num];
-    startTime = Date.now();
-    updateTimer();
+    // let num = Math.floor(Math.random() * words.length);
+    // japaneseTarget.textContent = wordsJapanese[num];
+    // target.textContent = words[num];
+    // word = words[num];
+    start();
   });
 
   window.onkeydown = function(e){
@@ -98,7 +118,7 @@
         word = words[num];
         loc = 0;
       }
-      updateTarget();
+      updateTarget(num);
       scoreNum++;
       score.textContent = scoreNum;
     } else {
