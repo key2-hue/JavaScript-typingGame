@@ -1,7 +1,13 @@
 {
 
   const wordsJapanese = [
-
+    '熊本',
+    '福岡',
+    '大分',
+    '長崎',
+    '佐賀',
+    '宮崎',
+    '鹿児島'
   ];
 
   const words = [
@@ -27,7 +33,7 @@
   const miss = document.createElement('span');
   miss.id = 'miss';
   const timerLabel = document.getElementById('timer');
-  const yourAnswer = document.getElementById('answer');
+  const japaneseTarget = document.getElementById('japaneseTarget');
 
   function updateTarget() {
     target.innerHTML = "<span style='color: skyblue'>" + word.substring(0,loc) + "</span>" + word.substring(loc);
@@ -71,8 +77,10 @@
     missNum = 0;
     score.textContent = scoreNum;
     miss.textContent = missNum;
-    word = words[Math.floor(Math.random() * words.length)];
-    target.textContent = word;
+    let num = Math.floor(Math.random() * words.length);
+    japaneseTarget.textContent = wordsJapanese[num];
+    target.textContent = words[num];
+    word = words[num];
     startTime = Date.now();
     updateTimer();
   });
@@ -85,7 +93,9 @@
     if(e.key === word.charAt(loc)) {
       loc++;
       if(loc === word.length) {
-        word = words[Math.floor(Math.random() * words.length)];
+        num = Math.floor(Math.random() * words.length);
+        japaneseTarget.textContent = wordsJapanese[num];
+        word = words[num];
         loc = 0;
       }
       updateTarget();
